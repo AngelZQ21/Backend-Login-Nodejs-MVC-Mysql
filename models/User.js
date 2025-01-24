@@ -17,7 +17,7 @@ class User{
             'SELECT * FROM users WHERE username=?', [username]
         );
 
-        return rows;
+        return rows[0];
     }
 }
 

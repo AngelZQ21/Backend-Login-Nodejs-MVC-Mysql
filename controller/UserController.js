@@ -25,13 +25,13 @@ class UserController {
         try {
             
             const user = await User.getUserByEmail(username);
-            
+
             if (!user) {
                 return res.status(400).json({ message: "Usuario no encontrado" });
             }
 
             const isPasswordValid = await bcrypt.compare(password, user.password);
-            
+
             if (!isPasswordValid) {
                 return res.status(400).json({ message: "Contraseña Incorrecta" });
             }
@@ -39,7 +39,7 @@ class UserController {
             const payload = { userId: user.id }
             const token = jwt.encode(payload, JWT_SECRET);
 
-            req.json({ token });
+            res.json({ token });
 
         } catch (e) {   
             res.status(500).json({ message: "Error al iniciar session" });
